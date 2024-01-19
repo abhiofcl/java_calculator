@@ -14,6 +14,7 @@ import java.util.Arrays;
 public class Calculator implements ActionListener {
     JFrame jf;
     JLabel displayLabel;
+    JLabel currOperator;
 
     JButton seven;
     JButton eight;
@@ -48,13 +49,22 @@ public class Calculator implements ActionListener {
         jf.getContentPane().setBackground(Color.BLACK);
 
         displayLabel = new JLabel("");
-        displayLabel.setBounds(30, 20, 540, 60);
+        displayLabel.setBounds(30, 20, 380, 60);
         displayLabel.setBackground(Color.gray);
         displayLabel.setOpaque(true);
         displayLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         displayLabel.setForeground(Color.white);
-        displayLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        displayLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         jf.add(displayLabel);
+
+        currOperator = new JLabel("");
+        currOperator.setBounds(430, 20, 80, 60);
+        currOperator.setBackground(Color.GRAY);
+        currOperator.setOpaque(true);
+        currOperator.setHorizontalAlignment(SwingConstants.CENTER);
+        currOperator.setForeground(Color.white);
+        currOperator.setFont(new Font("Arial", Font.PLAIN, 30));
+        jf.add(currOperator);
 
         seven = new JButton("7");
         seven.setBounds(30, 120, 80, 80);
@@ -74,6 +84,7 @@ public class Calculator implements ActionListener {
         plus = new JButton("+");
         plus.setBounds(330, 120, 80, 80);
         jf.add(plus);
+        plus.setBackground(Color.ORANGE);
         plus.addActionListener(this);
 
         four = new JButton("4");
@@ -92,8 +103,9 @@ public class Calculator implements ActionListener {
         six.addActionListener(this);
 
         minus = new JButton("-");
-        minus.setBounds(330, 230, 80, 80);
+        minus.setBounds(430, 120, 80, 80);
         jf.add(minus);
+        minus.setBackground(Color.ORANGE);
         minus.addActionListener(this);
 
         one = new JButton("1");
@@ -112,8 +124,9 @@ public class Calculator implements ActionListener {
         three.addActionListener(this);
 
         multiply = new JButton("x");
-        multiply.setBounds(330, 330, 80, 80);
+        multiply.setBounds(330, 230, 80, 80);
         jf.add(multiply);
+        multiply.setBackground(Color.ORANGE);
         multiply.addActionListener(this);
 
         dot = new JButton(".");
@@ -129,16 +142,19 @@ public class Calculator implements ActionListener {
         equal = new JButton("=");
         equal.setBounds(230, 430, 80, 80);
         equal.addActionListener(this);
+        equal.setBackground(Color.GREEN);
         jf.add(equal);
 
         divide = new JButton("/");
-        divide.setBounds(330, 430, 80, 80);
+        divide.setBounds(430, 230, 80, 80);
         divide.addActionListener(this);
+        divide.setBackground(Color.ORANGE);
         jf.add(divide);
 
         clear = new JButton("c");
         clear.setBounds(430, 430, 80, 80);
         clear.addActionListener(this);
+        clear.setBackground(Color.RED);
         jf.add(clear);
 
         nine.setFont(new Font("Arial", Font.PLAIN, 40));
@@ -261,25 +277,30 @@ public class Calculator implements ActionListener {
             oldValue = displayLabel.getText();
             operator = "+";
             displayLabel.setText("");
+            currOperator.setText("+");
         } else if (e.getSource() == minus) {
             isOpClicked = true;
             oldValue = displayLabel.getText();
             operator = "-";
             displayLabel.setText("");
+            currOperator.setText("-");
         } else if (e.getSource() == multiply) {
             isOpClicked = true;
             oldValue = displayLabel.getText();
             operator = "x";
             displayLabel.setText("");
+            currOperator.setText("X");
         } else if (e.getSource() == divide) {
             isOpClicked = true;
             oldValue = displayLabel.getText();
             operator = "/";
             displayLabel.setText("");
+            currOperator.setText("/");
         } else if (e.getSource() == clear) {
             displayLabel.setText("");
             oldValue = "";
             newValue = "";
+            currOperator.setText("");
         } else if (e.getSource() == equal) {
             float result = 0;
             newValue = displayLabel.getText();
