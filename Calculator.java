@@ -39,6 +39,11 @@ public class Calculator implements ActionListener {
     // String[] prevValue;
     String operator = "";
     boolean isOpClicked = false;
+    int count = 0;
+    ArrayList<String> arrayList = new ArrayList<String>();
+    // String[] arr = new String[arrayList.size()];
+    float result = 0;
+    int first = 0;
 
     public Calculator() {
         jf = new JFrame("Calculator");
@@ -183,148 +188,223 @@ public class Calculator implements ActionListener {
         new Calculator();
     }
 
-    public String[] addItem(String[] prevs, String val) {
-        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(prevs));
-        arrayList.add(val);
-        prevs = arrayList.toArray(prevs);
-        return prevs;
+    // public void addItem(String val) {
 
+    // arrayList.add(val);
+    // arr = arrayList.toArray(arr);
+
+    // }
+
+    public void clearList() {
+        arrayList.clear();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String labelText = displayLabel.getText();
+        String valString;
+
+        if (count > 1) {
+            System.out.println(arrayList.get(0));
+            System.out.println(arrayList.get(1));
+            System.out.println(arrayList.get(2));
+            switch (arrayList.get(1)) {
+                case "+":
+                    result = Float.parseFloat(arrayList.get(0)) + Float.parseFloat(arrayList.get(2));
+                    break;
+                case "-":
+                    result = Float.parseFloat(arrayList.get(0)) - Float.parseFloat(arrayList.get(2));
+                    break;
+                case "x":
+                    result = Float.parseFloat(arrayList.get(0)) * Float.parseFloat(arrayList.get(2));
+                    break;
+                case "/":
+                    result = Float.parseFloat(arrayList.get(0)) / Float.parseFloat(arrayList.get(2));
+                    break;
+                default:
+                    System.out.println("Invalid operator 2: " + arrayList.get(1));
+                    break;
+            }
+            arrayList.set(0, Float.toString(result));
+            arrayList.remove(1);
+            arrayList.remove(1);
+            System.out.println("modified: " + arrayList.get(1));
+            count = 0;
+            // displayLabel.setText(Float.toString(result));
+            // oldValue = Float.toString(result);
+        }
 
         if (e.getSource() == seven) {
             if (isOpClicked) {
                 displayLabel.setText("7");
                 isOpClicked = false;
             } else {
-                displayLabel.setText(labelText + "7");
+                displayLabel.setText(displayLabel.getText() + "7");
+                System.out.println(displayLabel.getText());
             }
+
         } else if (e.getSource() == eight) {
             if (isOpClicked) {
                 displayLabel.setText("8");
                 isOpClicked = false;
             } else {
-                displayLabel.setText(labelText + "8");
+                displayLabel.setText(displayLabel.getText() + "8");
             }
         } else if (e.getSource() == nine) {
             if (isOpClicked) {
                 displayLabel.setText("9");
                 isOpClicked = false;
             } else {
-                displayLabel.setText(labelText + "9");
+                displayLabel.setText(displayLabel.getText() + "9");
             }
         } else if (e.getSource() == six) {
             if (isOpClicked) {
                 displayLabel.setText("6");
                 isOpClicked = false;
             } else {
-                displayLabel.setText(labelText + "6");
+                displayLabel.setText(displayLabel.getText() + "6");
             }
         } else if (e.getSource() == five) {
             if (isOpClicked) {
                 displayLabel.setText("5");
                 isOpClicked = false;
             } else {
-                displayLabel.setText(labelText + "5");
+                displayLabel.setText(displayLabel.getText() + "5");
             }
         } else if (e.getSource() == four) {
             if (isOpClicked) {
                 displayLabel.setText("4");
                 isOpClicked = false;
             } else {
-                displayLabel.setText(labelText + "4");
+                displayLabel.setText(displayLabel.getText() + "4");
             }
         } else if (e.getSource() == three) {
             if (isOpClicked) {
                 displayLabel.setText("3");
                 isOpClicked = false;
             } else {
-                displayLabel.setText(labelText + "3");
+                displayLabel.setText(displayLabel.getText() + "3");
             }
         } else if (e.getSource() == two) {
             if (isOpClicked) {
                 displayLabel.setText("2");
                 isOpClicked = false;
             } else {
-                displayLabel.setText(labelText + "2");
+                displayLabel.setText(displayLabel.getText() + "2");
             }
         } else if (e.getSource() == one) {
             if (isOpClicked) {
                 displayLabel.setText("1");
                 isOpClicked = false;
             } else {
-                displayLabel.setText(labelText + "1");
+                displayLabel.setText(displayLabel.getText() + "1");
             }
         } else if (e.getSource() == zero) {
             if (isOpClicked) {
                 displayLabel.setText("0");
                 isOpClicked = false;
             } else {
-                displayLabel.setText(labelText + "0");
+                displayLabel.setText(displayLabel.getText() + "0");
             }
         } else if (e.getSource() == dot) {
             if (isOpClicked) {
                 displayLabel.setText(".");
                 isOpClicked = false;
             } else {
-                displayLabel.setText(labelText + ".");
+                displayLabel.setText(displayLabel.getText() + ".");
             }
         } else if (e.getSource() == plus) {
+            first += 1;
             isOpClicked = true;
             oldValue = displayLabel.getText();
             operator = "+";
             displayLabel.setText("");
             currOperator.setText("+");
+            if (first == 1)
+                count += 1;
+            else if (first > 1)
+                count += 2;
+            arrayList.add(oldValue);
+            arrayList.add(operator);
         } else if (e.getSource() == minus) {
+            first += 1;
             isOpClicked = true;
-            oldValue = displayLabel.getText();
             operator = "-";
+            oldValue = displayLabel.getText();
             displayLabel.setText("");
             currOperator.setText("-");
+            if (first == 1)
+                count += 1;
+            else if (first > 1)
+                count += 2;
+            arrayList.add(oldValue);
+            arrayList.add(operator);
         } else if (e.getSource() == multiply) {
+            first += 1;
             isOpClicked = true;
             oldValue = displayLabel.getText();
             operator = "x";
             displayLabel.setText("");
             currOperator.setText("X");
+            if (first == 1)
+                count += 1;
+            else if (first > 1)
+                count += 2;
+            arrayList.add(oldValue);
+            arrayList.add(operator);
         } else if (e.getSource() == divide) {
+            first += 1;
             isOpClicked = true;
             oldValue = displayLabel.getText();
             operator = "/";
             displayLabel.setText("");
             currOperator.setText("/");
+            if (first == 1)
+                count += 1;
+            else if (first > 1)
+                count += 2;
+            arrayList.add(oldValue);
+            arrayList.add(operator);
         } else if (e.getSource() == clear) {
             displayLabel.setText("");
             oldValue = "";
             newValue = "";
             currOperator.setText("");
+            count = 0;
+            first = 0;
+            clearList();
         } else if (e.getSource() == equal) {
-            float result = 0;
             newValue = displayLabel.getText();
+            arrayList.add(newValue);
+            System.out.print("The equal values \n");
+            System.out.println(arrayList.get(0));
+            System.out.println(arrayList.get(1));
+            System.out.println(arrayList.get(2));
             switch (operator) {
                 case "+":
-                    result = Float.parseFloat(oldValue) + Float.parseFloat(newValue);
+                    result = Float.parseFloat(arrayList.get(0)) + Float.parseFloat(newValue);
                     break;
                 case "-":
-                    result = Float.parseFloat(oldValue) - Float.parseFloat(newValue);
+                    result = Float.parseFloat(arrayList.get(0)) - Float.parseFloat(newValue);
+                    System.out.println("Rsult is: " + result);
                     break;
                 case "x":
-                    result = Float.parseFloat(oldValue) * Float.parseFloat(newValue);
+                    result = Float.parseFloat(arrayList.get(0)) * Float.parseFloat(newValue);
                     break;
                 case "/":
-                    result = Float.parseFloat(oldValue) / Float.parseFloat(newValue);
+                    result = Float.parseFloat(arrayList.get(0)) / Float.parseFloat(newValue);
                     break;
                 default:
                     // Handle unexpected operator (optional)
                     System.out.println("Invalid operator: " + operator);
                     break;
             }
-            newValue = Float.toString(result);
-            displayLabel.setText(newValue);
-        }
 
+            // newValue = Float.toString(result);
+            oldValue = Float.toString(result);
+            count = 0;
+
+            displayLabel.setText(oldValue);
+        }
     }
 }
